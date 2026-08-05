@@ -5,23 +5,24 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import AuthHero from "../components/AuthHero.jsx";
 import Spinner from "../components/Spinner.jsx";
-import { useLogin } from "../hooks/useAuth.js";
+import { useAuth } from "../hooks/useAuth.js";
 import { loginSchema } from "../validate/auth.validator.js";
 
 const Login = () => {
-  const login = useLogin();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const form = useForm({
+  const { Field, handleSubmit, Subscribe } = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
 
     validators: {
-      onChange: loginSchema,
+      onBlur: loginSchema,
+      onSubmit: loginSchema,
     },
 
     onSubmit: async ({ value }) => {
@@ -59,12 +60,13 @@ const Login = () => {
               onSubmit={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                void form.handleSubmit();
+
+                void handleSubmit();
               }}
               className="space-y-5"
             >
               {/* Email */}
-              <form.Field name="email">
+              <Field name="email">
                 {(field) => (
                   <div className="space-y-2">
                     <label
@@ -93,10 +95,10 @@ const Login = () => {
                       )}
                   </div>
                 )}
-              </form.Field>
+              </Field>
 
               {/* Password */}
-              <form.Field name="password">
+              <Field name="password">
                 {(field) => (
                   <div className="space-y-2">
                     <label
@@ -140,10 +142,10 @@ const Login = () => {
                       )}
                   </div>
                 )}
-              </form.Field>
+              </Field>
 
               {/* Submit */}
-              <form.Subscribe
+              <Subscribe
                 selector={(state) => [state.isSubmitting, state.canSubmit]}
               >
                 {([isSubmitting, canSubmit]) => (
@@ -162,7 +164,7 @@ const Login = () => {
                     )}
                   </button>
                 )}
-              </form.Subscribe>
+              </Subscribe>
             </form>
 
             <p className="text-center mt-8 text-sm text-slate-500">

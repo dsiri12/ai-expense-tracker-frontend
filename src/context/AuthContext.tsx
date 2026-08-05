@@ -13,7 +13,15 @@ interface AuthContextType {
   register: (payload: RegisterDto) => Promise<void>;
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+const initialAuthContext: AuthContextType = {
+  login: async () => {},
+  logout: () => {},
+  user: null,
+  loading: false,
+  register: async () => {},
+};
+
+export const AuthContext = createContext<AuthContextType>(initialAuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserResponse | null>(null);
