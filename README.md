@@ -1,16 +1,57 @@
-# React + Vite
+build docker image:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+$ docker build --build-arg VITE_API_URL=http://localhost:8000 -t ai-expense-tracker-frontend .
 
-Currently, two official plugins are available:
+...
+=> => exporting manifest list sha256:a292914440beed4a5803e93468b2caf3f62aec573a6ea76e8a5dc09adfa38e49 0.1s
+=> => naming to docker.io/library/ai-expense-tracker-frontend:latest 0.0s
+=> => unpacking to docker.io/library/ai-expense-tracker-frontend:latest
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+remove old container:
+$ docker rm -f ai-expense-tracker-frontend
 
-## React Compiler
+run: -- create the container based on the new build image
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+$ docker run --name ai-expense-tracker-frontend -p 5173:80 ai-expense-tracker-frontend
 
-## Expanding the ESLint configuration
+```
+docker run
+    │
+    ├── --name ai-expense-tracker-frontend
+    │        ↑
+    │        Container name
+    │
+    ├── -p 5173:80
+    │        ↑    ↑
+    │        │    Container port
+    │        Host port
+    │
+    └── ai-expense-tracker-frontend
+             ↑
+             Docker image name
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+in chrome:
+http://localhost:5173
+
+flow:
+.env
+│
+│ VITE_API_URL
+▼
+docker build --build-arg
+│
+▼
+npm run build
+│
+▼
+Vite replaces import.meta.env.VITE_API_URL
+│
+▼
+dist/
+│
+▼
+Nginx
+│
+▼
+localhost:5173

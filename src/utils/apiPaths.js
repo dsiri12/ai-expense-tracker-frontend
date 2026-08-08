@@ -1,38 +1,40 @@
+const basePath = '/api/v1';
+
 export const API_PATHS = {
     AUTH: {
-        REGISTER: '/auth/register',
-        LOGIN: '/auth/login',
-        ME: '/auth/me',
+        REGISTER: `${basePath}/auth/register`,
+        LOGIN: `${basePath}/auth/login`,
+        ME: `${basePath}/auth/me`,
     },
     CATEGORIES: {
-        LIST: '/categories',
-        CREATE: '/categories',
-        UPDATE: (id) => `/categories/${id}`,
-        DELETE: (id) => `/categories/${id}`,
+        LIST: `${basePath}/categories`,
+        CREATE: `${basePath}/categories`,
+        UPDATE: (id) => `${basePath}/categories/${id}`,
+        DELETE: (id) => `${basePath}/categories/${id}`,
     },
     TRANSACTIONS: {
-        LIST: '/transactions',
-        CREATE: '/transactions',
-        GET_BY_ID: (id) => `/transactions/${id}`,
-        UPDATE: (id) => `/transactions/${id}`,
-        DELETE: (id) => `/transactions/${id}`,
-        ANALYZE: '/transactions/analyze',
+        LIST: `${basePath}/transactions`,
+        CREATE: `${basePath}/transactions`,
+        GET_BY_ID: (id) => `${basePath}/transactions/${id}`,
+        UPDATE: (id) => `${basePath}/transactions/${id}`,
+        DELETE: (id) => `${basePath}/transactions/${id}`,
+        ANALYZE: `${basePath}/transactions/analyze`,
     },
     BUDGETS: {
-        LIST: '/budgets',
-        CREATE: '/budgets',
-        UPDATE: (id) => `/budgets/${id}`,
-        DELETE: (id) => `/budgets/${id}`,
-        ANALYZE: '/budgets/analyze',
+        LIST: `${basePath}/budgets`,
+        CREATE: `${basePath}/budgets`,
+        UPDATE: (id) => `${basePath}/budgets/${id}`,
+        DELETE: (id) => `${basePath}/budgets/${id}`,
+        ANALYZE: `${basePath}/budgets/analyze`,
     },
     DASHBOARD: {
-        SUMMARY: '/dashboard/summary',
-        CATEGORY_BREAKDOWN: '/dashboard/category-breakdown',
-        MONTHLY_TREND: '/dashboard/monthly-trend',
+        SUMMARY: `${basePath}/dashboard/summary`,
+        CATEGORY_BREAKDOWN: `${basePath}/dashboard/category-breakdown`,
+        MONTHLY_TREND: `${basePath}/dashboard/monthly-trend`,
     },
     INSIGHTS: {
-        LIST: '/insights',
-        GENERATE: '/insights/generate',
+        LIST: `${basePath}/insights`,
+        GENERATE: `${basePath}/insights/generate`,
     },
 };
 
